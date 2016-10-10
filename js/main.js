@@ -140,7 +140,7 @@ var mainLogic = (function () {
       var modal = document.getElementById('myModal');
 
       // Get the button that opens the modal
-      var modalContent = document.getElementById("modalText").innerHTML = "Score: " + score + "<br />" + "Game Over";
+      var modalContent = document.getElementById("modalText").innerHTML = "Game Over <br />" +  "Score: " + score ;
 
 
       // Get the <span> element that closes the modal

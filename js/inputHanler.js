@@ -1,7 +1,6 @@
 
 (function (window, document, mainLogic, undefined) {
 
-//
 var btn = document.getElementById('btn');
 btn.addEventListener("click", function(){ mainLogic.start();});
 

@@ -2,6 +2,13 @@
 //simulate class- cant call functions outside witout mainLogic.
 var mainLogic = (function () {
 
+
+    var soundEfx; // Sound Efx   
+   
+    var soundGameOver = 'sound/over.wav'; //Game Over sound efx    
+    var soundHitFood = 'sound/hit.wav'; //Game Hit Food sound efx    
+    var soundSoundBackground = 'sound/game_sound_background.wav'; //Game Sound Background sound efx  
+
   var drawSnake = function(x, y) {
         ctx.fillStyle = 'green';
         ctx.fillRect(x*snakeSize, y*snakeSize, snakeSize, snakeSize);
@@ -33,6 +40,9 @@ var mainLogic = (function () {
       for (var i = initialLength-1; i>=0; i--) {
           snake.push({x:i, y:0});
       }
+      soundEfx = document.getElementById("soundEfx");  
+      soundEfx.src = soundSoundBackground;  
+      soundEfx.play();   
   }
 
 
@@ -66,6 +76,11 @@ var mainLogic = (function () {
           btn.removeAttribute('disabled', true);
 
           ctx.clearRect(0,0,w,h);
+
+          soundEfx = document.getElementById("soundEfx");  
+          soundEfx.src = soundGameOver;   
+          soundEfx.play();   
+          
           gameloop = clearInterval(gameloop);
 
           gameOverDialog();
@@ -77,7 +92,11 @@ var mainLogic = (function () {
         var tail = {x:0, y:0};
         if(snakeX == food.x && snakeY == food.y) {
           tail = {x: snakeX, y: snakeY}; //Create a new head instead of moving the tail
-          score ++;
+            soundEfx = document.getElementById("soundEfx");   
+            soundEfx.src = soundHitFood;   
+            soundEfx.play();   
+            
+            score ++;
 
           //check if speed reached speed minimum and increase the speed
           snakeSpeed -= speedStep;

@@ -168,10 +168,25 @@ var mainLogic = (function () {
         score = 0;
         direction = 'down';
         fillSnake();
+		
         createFood();
         snakeSpeed = snakeStartSpeed;
+		time();
         gameloop = setInterval(moveSnake, snakeSpeed);   //global gameloop is id to interval
     }
+	
+	
+	//Timer
+var time = function timer(){
+	var sec = -1;
+function pad(val) { return val > 9 ? val : "0" + val; }
+setInterval(function () {
+	
+    $("#seconds").html(pad(++sec % 60));
+    $("#minutes").html(pad(parseInt(sec / 60, 10) % 60));
+    $("#hours").html(pad(parseInt(sec / 3600, 10)));
+}, 1000);  
+}
 
 
 

@@ -1,4 +1,10 @@
+$(document).ready(function () {
+    $('#pause_btn').hide();
+});
+
+
 //simulate class- cant call functions outside witout mainLogic.
+
 var mainLogic = (function () {
 
 
@@ -102,7 +108,8 @@ var mainLogic = (function () {
             btn.removeAttribute('disabled', true);
             pause_btn.setAttribute('disabled', true)
 
-
+		
+		
             //ctx.clearRect(0,0,w,h);
             clock.stop();
 
@@ -113,6 +120,10 @@ var mainLogic = (function () {
             gameloop = clearInterval(gameloop);
 
             gameOverDialog();
+			
+			$('#btn').show();
+			$('#pause_btn').hide();
+			
 
             return;
         }
@@ -201,6 +212,9 @@ var mainLogic = (function () {
     }
 
     var start = function () {
+		$('#pause_btn').show();
+		$('#btn').hide();
+		
         soundEfx = document.getElementById("soundEfx");
         soundEfx.src = soundSoundBackground;
         soundEfx.play();

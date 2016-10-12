@@ -18,6 +18,7 @@ var mainLogic = (function () {
 	var tenPointsFood = 0;
 	var pointsWithoutBonuses = 0;
 	var foodBonusScore = 0;
+	var mostBonusesFromFood = 'equal';
 	
 
     var drawSnake = function (x, y) {
@@ -69,9 +70,11 @@ var mainLogic = (function () {
 		let yellowColor = "Ten Point: " + tenPointsFood;
 		let sumWithBonuses = "Score without bonuses: " + pointsWithoutBonuses;
 		let bonusFromFoods = "Bonuses from foods: " + foodBonusScore;
+		let mostFoodBon = "Most fallen bonus food: " + mostBonusesFromFood;
 		
 		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + "<hr />" + "Food points:" + "<br />" + blueLight +
-		 "<br />" + redColor + "<br />" + yellowColor + "<br />" + "<hr />" + sumWithBonuses + "<br />" + "<hr />" + bonusFromFoods;
+		 "<br />" + redColor + "<br />" + yellowColor + "<br />" + "<hr />" + sumWithBonuses + "<br />" + "<hr />" + bonusFromFoods +
+		 "<br /><br />" + mostFoodBon;
 
        
 
@@ -125,6 +128,7 @@ var mainLogic = (function () {
 			tenPointsFood = 0;
 			pointsWithoutBonuses = 0;
 			foodBonusScore = 0;
+			mostBonusesFromFood = 'equal';
             btn.removeAttribute('disabled', true);
             pause_btn.setAttribute('disabled', true)
 
@@ -159,6 +163,14 @@ var mainLogic = (function () {
 			
 			pointsWithoutBonuses = score - ((tenPointsFood * 10) + (fivePointFood * 5));
 			foodBonusScore = (tenPointsFood * 10) + (fivePointFood * 5);
+			
+			if(tenPointsFood > fivePointFood){
+				mostBonusesFromFood = 'yellow food';
+			}else if(tenPointsFood < fivePointFood){
+				mostBonusesFromFood = 'red food';
+			}else{
+				mostBonusesFromFood = 'equal';
+			}
 
 
             //check if speed reached speed minimum and increase the speed

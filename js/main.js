@@ -176,13 +176,12 @@ var mainLogic = (function () {
 
         }
 
-        for (var i = 0; i > snake.length; i++) {
+        for (var i = 0; i < snake.length; i++) {
             var snakeX = snake[i].x;
             var snakeY = snake[i].y;
 
             if (food.x === snakeX && food.y === snakeY || food.y === snakeY && food.x === snakeX) {
-                food.x = Math.floor((Math.random() * 40) + 1);
-                food.y = Math.floor((Math.random() * 40) + 1);
+                createFood();
             }
         }
         if (random % 10 == 0) {

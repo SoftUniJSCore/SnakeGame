@@ -13,6 +13,9 @@ var mainLogic = (function () {
     var soundGameOver = 'sound/over.wav'; //Game Over sound efx
     var soundHitFood = 'sound/hit.wav'; //Game Hit Food sound efx
     var soundSoundBackground = 'sound/game_sound_background.wav'; //Game Sound Background sound efx
+	var onePointFood = 0;
+	var fivePointFood = 0;
+	var tenPointsFood = 0;
 
     var drawSnake = function (x, y) {
         ctx.fillStyle = 'green';
@@ -58,7 +61,11 @@ var mainLogic = (function () {
     var scoreText = function () {
         var score_text = "Score: " + score;
 		let snSize = "Snake size: " + snake.length;
-		document.getElementById('score').innerHTML = score_text + "<br />" + snSize;
+		let blueLight = "One point: " + onePointFood;
+		let redColor = "Five point: " + fivePointFood;
+		let yellowColor = "Ten Point: " + tenPointsFood;
+		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + blueLight +
+		 "<br />" + redColor + "<br />" + yellowColor;
 
        
 
@@ -135,9 +142,9 @@ var mainLogic = (function () {
         if (snakeX == food.x && snakeY == food.y) {
             tail = {x: snakeX, y: snakeY};
 
-            if (foodFlag == "10x") {score += 10;}
-            else if (foodFlag == "5x") {score += 5;}
-            else {score++;}
+            if (foodFlag == "10x") {score += 10; tenPointsFood++}
+            else if (foodFlag == "5x") {score += 5; fivePointFood++;}
+            else {score++; onePointFood++;}
 
 
             //check if speed reached speed minimum and increase the speed
@@ -187,13 +194,20 @@ var mainLogic = (function () {
             }
         }
         if (random % 10 == 0) {
+			console.log("% 10 " +random);
             foodFlag = "10x"
+			
 
         } else if (random % 5 == 0) {
+			console.log("% 5 " +random);
             foodFlag = "5x"
         } else {
+			console.log(random);
             foodFlag = "1x"
+			
         }
+		
+		
     }
 
 //check if head element is equal to another element from snake array

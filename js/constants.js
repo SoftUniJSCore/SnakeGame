@@ -8,7 +8,9 @@ var score = 0;
 var snake;
 var snakeSize = 15;
 var food;
+
 var initialLength = 5;
 var snakeStartSpeed = 300;
 var speedMin = 100;
 var speedStep = 100;
+var isPaused ;

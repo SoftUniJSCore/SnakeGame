@@ -44,9 +44,14 @@
 
     #btn{
         margin-top: 2%;
-        width: 300px;
+        width: 150px;
         height: 40px;
     }
+#pause_btn{
+    margin-top: 2%;
+    width: 150px;
+    height: 40px;
+}
 
     p {
       font-family: Helvetica;

@@ -1,6 +1,16 @@
 
 (function (window, document, mainLogic, undefined) {
 
+//
+function stopMusic(){
+	soundEfx.pause();
+}
+
+function startMusic(){
+	soundEfx.play();
+}
+
+
 var btn = document.getElementById('btn');
 btn.addEventListener("click", function(){ mainLogic.start();});
 
@@ -38,7 +48,19 @@ btn.addEventListener("click", function(){ mainLogic.start();});
           console.log('down');
           }
           break;
+
+            case 80:
+                stopMusic();
+                break;
+            case 77:
+                startMusic();
+                break;
+            case 32:
+                pause.onclick();
+                break;
           }
+
+
       }
 
 

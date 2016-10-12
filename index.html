@@ -4,24 +4,26 @@
 
 	<script src="js/jquery-3.1.0.min.js"></script>
   	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/flipclock.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-
+     <img id="img" src="./img/gameover.jpg" style="display: none" width="50" height="50">
 
  </head>
  <body>
+ <script src="js/flipclock.min.js"></script>
+
  <div class="container">
-	
+
      <div class= 'game'>
+	  <div style="width: 41%; margin-top: 3%; margin-left: 30%;" class="your-clock"></div>
 		<div id="score"></div>
-		<div id="timer">
-			<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
-		</div>
          <div id = 'home'>
-			
+
              <canvas id='mycanvas' width='600' height='600'></canvas>
          </div>
-         <button id='btn' class="btn btn-primary">START</button>
-         <audio id="soundEfx" src="over.wav" style="display: none;"></audio>
+         <button id = "pause_btn" class="btn btn-primary"></button>
+         <button id="btn" class="btn btn-primary">START</button>
+         <audio id="soundEfx" src="sound/game_sound_background.wav" style="display: none;"></audio>
      </div>
  </div>
 

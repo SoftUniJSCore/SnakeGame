@@ -19,7 +19,7 @@ var mainLogic = (function () {
 	var pointsWithoutBonuses = 0;
 	var foodBonusScore = 0;
 	var mostBonusesFromFood = 'equal';
-	
+
 
     var drawSnake = function (x, y) {
         ctx.fillStyle = 'green';
@@ -71,12 +71,12 @@ var mainLogic = (function () {
 		let sumWithBonuses = "Score without bonuses: " + pointsWithoutBonuses;
 		let bonusFromFoods = "Bonuses from foods: " + foodBonusScore;
 		let mostFoodBon = "Most fallen bonus food: " + mostBonusesFromFood;
-		
+
 		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + "<hr />" + "Food points:" + "<br />" + blueLight +
 		 "<br />" + redColor + "<br />" + yellowColor + "<br />" + "<hr />" + sumWithBonuses + "<br />" + "<hr />" + bonusFromFoods +
 		 "<br /><br />" + mostFoodBon;
 
-       
+
 
     }
 
@@ -132,8 +132,8 @@ var mainLogic = (function () {
             btn.removeAttribute('disabled', true);
             pause_btn.setAttribute('disabled', true)
 
-		
-		
+
+
             //ctx.clearRect(0,0,w,h);
             clock.stop();
 
@@ -144,10 +144,10 @@ var mainLogic = (function () {
             gameloop = clearInterval(gameloop);
 
             gameOverDialog();
-			
+
 			$('#btn').show();
 			$('#pause_btn').hide();
-			
+
 
             return;
         }
@@ -160,10 +160,10 @@ var mainLogic = (function () {
             if (foodFlag == "10x") {score += 10; tenPointsFood++}
             else if (foodFlag == "5x") {score += 5; fivePointFood++;}
             else {score++; onePointFood++;}
-			
+
 			pointsWithoutBonuses = score - ((tenPointsFood * 10) + (fivePointFood * 5));
 			foodBonusScore = (tenPointsFood * 10) + (fivePointFood * 5);
-			
+
 			if(tenPointsFood > fivePointFood){
 				mostBonusesFromFood = 'yellow food';
 			}else if(tenPointsFood < fivePointFood){
@@ -221,16 +221,16 @@ var mainLogic = (function () {
         }
         if (random % 10 == 0) {
             foodFlag = "10x"
-			
+
 
         } else if (random % 5 == 0) {
             foodFlag = "5x"
         } else {
             foodFlag = "1x"
-			
+
         }
-		
-		
+
+
     }
 
 //check if head element is equal to another element from snake array
@@ -252,7 +252,7 @@ var mainLogic = (function () {
     var start = function () {
 		$('#pause_btn').show();
 		$('#btn').hide();
-		
+
         soundEfx = document.getElementById("soundEfx");
         soundEfx.src = soundSoundBackground;
         soundEfx.play();

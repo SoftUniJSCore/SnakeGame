@@ -57,8 +57,10 @@ var mainLogic = (function () {
 
     var scoreText = function () {
         var score_text = "Score: " + score;
+		let snSize = "Snake size: " + snake.length;
+		document.getElementById('score').innerHTML = score_text + "<br />" + snSize;
 
-        document.getElementById('score').innerHTML = score_text;
+       
 
     }
 

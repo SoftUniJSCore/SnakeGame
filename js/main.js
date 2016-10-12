@@ -1,88 +1,89 @@
-/*
- * MAin game logic - simulate class
- * can't call functions outside without mainLogic.
- */
-
+//simulate class- cant call functions outside witout mainLogic.
 var mainLogic = (function () {
 
 
     var soundEfx; // Sound Efx
-    var soundGameOver = 'sound/over.wav'; //Game Over sound efx    
-    var soundHitFood = 'sound/hit.wav'; //Game Hit Food sound efx    
-    var soundSoundBackground = 'sound/game_sound_background.wav'; //Game Sound Background sound efx  
 
+    var soundGameOver = 'sound/over.wav'; //Game Over sound efx
+    var soundHitFood = 'sound/hit.wav'; //Game Hit Food sound efx
+    var soundSoundBackground = 'sound/game_sound_background.wav'; //Game Sound Background sound efx
 
-    /*
-     * drawSnake - it draws the snake as rectangle
-     */
     var drawSnake = function (x, y) {
         ctx.fillStyle = 'green';
         ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
         ctx.strokeStyle = 'darkgreen';
         ctx.strokeRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
+
+
     }
 
-    /*
-     * drawFood - it draws the food as rectangle
-     */
     var drawFood = function (x, y) {
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
-        ctx.fillStyle = 'lightblue';
-        ctx.fillRect(x * snakeSize + 1, y * snakeSize + 1, snakeSize - 2, snakeSize - 2);
+
+      let outsideColor = 'blue';
+      let insideColor = 'lightblue'
+      let scoreSize = '1';
+
+      if (foodFlag == '1x') {
+         outsideColor = 'blue';
+         insideColor = 'lightblue';
+         scoreSize = '1';
+      } else if(foodFlag == '5x'){
+            outsideColor = 'red';
+            insideColor = '#ff6666';
+            scoreSize = '5';
+      } else if (foodFlag == '10x') {
+          outsideColor = 'black';
+          insideColor = 'yellow'
+          scoreSize = '10';
+      }
+
+      ctx.fillStyle = outsideColor;
+      ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
+      ctx.fillStyle = insideColor;
+      ctx.fillRect(x * snakeSize + 1, y * snakeSize + 1, snakeSize - 2, snakeSize - 2);
+
+      //score text
+      ctx.font = "12px";
+      ctx.fillStyle = outsideColor;
+      ctx.fillText(scoreSize, x * snakeSize - 2, y * snakeSize - 2);
+
     }
 
-    /*
-     * scoreText - shows the score when the game start
-     */
     var scoreText = function () {
         var score_text = "Score: " + score;
+
         document.getElementById('score').innerHTML = score_text;
 
     }
 
-    /*
-     * fillSnake - from 0 to initial length (global var) fill the snake rectangle by rectangle
-     */
+//from initlength to 0 to fill the snake - initial position coordinates
     var fillSnake = function () {
+        //var length = 4; //- global var
         snake = [];
         for (var i = initialLength - 1; i >= 0; i--) {
             snake.push({x: i, y: 0});
         }
 
-        soundEfx = document.getElementById("soundEfx");
-        soundEfx.src = soundSoundBackground;
-        soundEfx.play();
     }
 
 
-    /*
-     * moveSnake - main game logic - called in start game loop
-     */
+// main game logic - called in init game loop - move snake
     var moveSnake = function () {
-
-        /*
-         * draw back font
-         */
+        //draw font back
         ctx.fillStyle = '#ffc823';
         ctx.fillRect(0, 0, w, h);
         ctx.strokeStyle = 'black';
         ctx.strokeRect(0, 0, w, h);
 
-        /*
-         * disable start button when game is ongoing
-         */
+//game start - btn disabled
         btn.setAttribute('disabled', true);
+        pause_btn.removeAttribute('disabled', true)
 
-        /*
-         *  take zero coordinates as head
-         */
+
+//takes zero coordinates [x - 4, y - 0] as head
         var snakeX = snake[0].x;
         var snakeY = snake[0].y;
 
-        /*
-         *  change coordinates depend on key input
-         */
         if (direction == 'right') {
             snakeX++;
         }
@@ -95,17 +96,15 @@ var mainLogic = (function () {
             snakeY++;
         }
 
-        /*
-         *  change for GameOver - collision with walls or itself
-         */
+//game over - snakeSize - snake width - calc how many sqares it have
         if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || checkCollision(snakeX, snakeY, snake)) {
-
-            /*
-             *  when game over - reset game start button and clear game field
-             */
+            //restart game - active start button
             btn.removeAttribute('disabled', true);
-            ctx.clearRect(0, 0, w, h);
+            pause_btn.setAttribute('disabled', true)
 
+
+            //ctx.clearRect(0,0,w,h);
+            clock.stop();
 
             soundEfx = document.getElementById("soundEfx");
             soundEfx.src = soundGameOver;
@@ -118,46 +117,37 @@ var mainLogic = (function () {
             return;
         }
 
-        /*
-         *  define tail to keep element from tail to head or food to head
-         *  if the food is eaten create new head instead of moving the tail
-         *  and create new food on random position
-         *  check if the max speed is reached and increase it
-         *  otherwise we move the last element (tail) as first element (head) and the snake is moving
-         */
+// define var to keep element from tail to head or food to head - add coordinates in if
         var tail = {x: 0, y: 0};
         if (snakeX == food.x && snakeY == food.y) {
             tail = {x: snakeX, y: snakeY};
 
+            if (foodFlag == "10x") {score += 10;}
+            else if (foodFlag == "5x") {score += 5;}
+            else {score++;}
 
-            soundEfx = document.getElementById("soundEfx");
-            soundEfx.src = soundHitFood;
-            soundEfx.play();
 
-            score++;
-
+            //check if speed reached speed minimum and increase the speed
             snakeSpeed -= speedStep;
             if (snakeSpeed < speedMin) {
                 snakeSpeed = speedMin;
             }
-
             gameloop = clearInterval(gameloop);
             gameloop = setInterval(moveSnake, snakeSpeed);
 
-            createFood();
+
+            createFood(); //Create new food
         } else {
-            //pops out the last cell
-            snake.pop();
+
+            snake.pop(); //pops out the last cell
             tail.x = snakeX;
             tail.y = snakeY;
         }
 
-        //add tail element in front of the array
-        snake.unshift(tail);
+        //add tail element in from of the array
+        snake.unshift(tail); //puts back the tail as the first cell
 
-        /*
-         *  the snake is ready to be drawn rectangle by rectangle
-         */
+//the snake is ready and draw
         for (var i = 0; i < snake.length; i++) {
             drawSnake(snake[i].x, snake[i].y);
         }
@@ -165,15 +155,14 @@ var mainLogic = (function () {
         drawFood(food.x, food.y);
         scoreText();
     }
-
-    /*
-     *  create food at random position
-     *  check if food shows on the snake body and change it
-     */
+    var foodFlag;
     var createFood = function () {
+        var random = Math.floor(Math.random() * 100 + 1);
+
         food = {
             x: Math.floor((Math.random() * 40)),
             y: Math.floor((Math.random() * 40))
+
         }
 
         for (var i = 0; i > snake.length; i++) {
@@ -185,12 +174,17 @@ var mainLogic = (function () {
                 food.y = Math.floor((Math.random() * 40) + 1);
             }
         }
+        if (random % 10 == 0) {
+            foodFlag = "10x"
+
+        } else if (random % 5 == 0) {
+            foodFlag = "5x"
+        } else {
+            foodFlag = "1x"
+        }
     }
 
-    /*
-     *  check if head element is equal to another element from snake array
-     *  its called in GameOver check
-     */
+//check if head element is equal to another element from snake array
     var checkCollision = function (x, y, array) {
         for (var i = 0; i < array.length; i++) {
             if (array[i].x === x && array[i].y === y)
@@ -199,63 +193,69 @@ var mainLogic = (function () {
         return false;
     }
 
-
-    /*
-     *  dialog box with the score shown when the game is over
-     */
     var gameOverDialog = function () {
 
-        // Get the modal
-        var modal = document.getElementById('myModal');
+        var img = document.getElementById("img");
+        ctx.drawImage(img, 0, 0, 600, 600);
 
-        var modalContent = document.getElementById("modalText").innerHTML = "Game Over <br />" + "Score: " + score;
-        var span = document.getElementsByClassName("close")[0];
-        modal.style.display = "block";
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
     }
 
-    /*
-     *  game initialisation point
-     */
     var start = function () {
+        soundEfx = document.getElementById("soundEfx");
+        soundEfx.src = soundSoundBackground;
+        soundEfx.play();
+
         score = 0;
         direction = 'down';
         fillSnake();
         createFood();
+
         snakeSpeed = snakeStartSpeed;
-        time();
+
+        clock.reset();
+        clock.start();
+
         gameloop = setInterval(moveSnake, snakeSpeed);   //global gameloop is id to interval
     }
 
-    /*
-     *  timer shows how long is the game going
-     */
-    var time = function timer() {
-        var sec = -1;
 
-        function pad(val) {
-            return val > 9 ? val : "0" + val;
-        }
+    var clock = $('.your-clock').FlipClock({
+        autoStart: false
+    });
 
-        setInterval(function () {
 
-            $("#seconds").html(pad(++sec % 60));
-            $("#minutes").html(pad(parseInt(sec / 60, 10) % 60));
-            $("#hours").html(pad(parseInt(sec / 3600, 10)));
-        }, 1000);
+    function stopMusic() {
+        soundEfx.pause();
     }
 
+    function startMusic() {
+        soundEfx.start();
+    }
 
-    //return json object called in the input handler
+    //pause the game
+
+    var pause = document.getElementById("pause_btn");
+    pause.innerHTML = "PAUSE";
+    pause.onclick = function pauseGame() {
+        if (!isPaused) {
+            gameloop = clearInterval(gameloop);
+            pause.innerHTML = "PLAY"
+            soundEfx.pause()
+            clock.stop();
+            isPaused = true;
+        } else if (isPaused = true) {
+            gameloop = setInterval(moveSnake, snakeSpeed);
+            pause.innerHTML = "PAUSE"
+            soundEfx.play();
+            clock.start();
+            isPaused = false
+        }
+
+
+    };
+
+
+//returns json object
     return {
         start: start
     };

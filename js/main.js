@@ -16,6 +16,8 @@ var mainLogic = (function () {
 	var onePointFood = 0;
 	var fivePointFood = 0;
 	var tenPointsFood = 0;
+	var pointsWithoutBonuses = 0;
+	var foodBonusScore = 0;
 
     var drawSnake = function (x, y) {
         ctx.fillStyle = 'green';
@@ -64,8 +66,11 @@ var mainLogic = (function () {
 		let blueLight = "One point: " + onePointFood;
 		let redColor = "Five point: " + fivePointFood;
 		let yellowColor = "Ten Point: " + tenPointsFood;
-		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + blueLight +
-		 "<br />" + redColor + "<br />" + yellowColor;
+		let sumWithBonuses = "Score without bonuses: " + pointsWithoutBonuses;
+		let bonusFromFoods = "Bonuses from foods: " + foodBonusScore;
+		
+		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + "<hr />" + "Food points:" + "<br />" + blueLight +
+		 "<br />" + redColor + "<br />" + yellowColor + "<br />" + "<hr />" + sumWithBonuses + "<br />" + "<hr />" + bonusFromFoods;
 
        
 
@@ -145,6 +150,9 @@ var mainLogic = (function () {
             if (foodFlag == "10x") {score += 10; tenPointsFood++}
             else if (foodFlag == "5x") {score += 5; fivePointFood++;}
             else {score++; onePointFood++;}
+			
+			pointsWithoutBonuses = score - ((tenPointsFood * 10) + (fivePointFood * 5));
+			foodBonusScore = (tenPointsFood * 10) + (fivePointFood * 5);
 
 
             //check if speed reached speed minimum and increase the speed

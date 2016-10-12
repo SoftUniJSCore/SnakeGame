@@ -202,15 +202,12 @@ var mainLogic = (function () {
             }
         }
         if (random % 10 == 0) {
-			console.log("% 10 " +random);
             foodFlag = "10x"
 			
 
         } else if (random % 5 == 0) {
-			console.log("% 5 " +random);
             foodFlag = "5x"
         } else {
-			console.log(random);
             foodFlag = "1x"
 			
         }

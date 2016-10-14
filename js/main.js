@@ -54,11 +54,16 @@ var mainLogic = (function () {
       ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
       ctx.fillStyle = insideColor;
       ctx.fillRect(x * snakeSize + 1, y * snakeSize + 1, snakeSize - 2, snakeSize - 2);
+	  ctx.fillStyle = 'black';
+	  if(scoreSize >= 10){
+		  ctx.fillText(scoreSize, (x * snakeSize) + 1, (y * snakeSize) + 11);
+	  }else{
+		  ctx.fillText(scoreSize, (x * snakeSize) + 5, (y * snakeSize) + 11);
+	  }
 
       //score text
       ctx.font = "12px";
       ctx.fillStyle = outsideColor;
-      ctx.fillText(scoreSize, x * snakeSize - 2, y * snakeSize - 2);
 
     }
 

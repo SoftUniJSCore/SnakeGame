@@ -1,6 +1,6 @@
 #home {
     width: 600px;
-    height: 600px;
+    height: 500px;
     background-image: url('../img/snake.jpg');
     background-size: auto 600px;
     background-repeat: no-repeat;
@@ -121,7 +121,7 @@ p {
 
 #score {
     font-family: Verdana, sans-serif;
-    font-size: 20pt;
+    font-size: 13pt;
     float: left;
     width: 200px;
     height: 40px;

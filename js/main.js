@@ -207,12 +207,13 @@ var mainLogic = (function () {
         scoreText();
     }
     var foodFlag;
+
     var createFood = function () {
         var random = Math.floor(Math.random() * 100 + 1);
 
         food = {
-            x: Math.floor((Math.random() * 40)),
-            y: Math.floor((Math.random() * 40))
+            x: Math.floor((Math.random() * 20)),
+            y: Math.floor((Math.random() * 20))
 
         }
 

@@ -3,7 +3,7 @@
 var mycanvas = document.getElementById('mycanvas');
 var ctx = mycanvas.getContext('2d');
 var w = 600;
-var h = 500;
+var h = 510;
 var score = 0;
 var snake;
 var snakeSize = 15;

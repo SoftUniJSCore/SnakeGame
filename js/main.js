@@ -19,6 +19,9 @@ var mainLogic = (function () {
 	var pointsWithoutBonuses = 0;
 	var foodBonusScore = 0;
 	var mostBonusesFromFood = 'equal';
+  var snakeSizeWithoutBonus = 5;
+
+
 
 
     var drawSnake = function (x, y) {
@@ -48,6 +51,10 @@ var mainLogic = (function () {
           outsideColor = 'black';
           insideColor = 'yellow'
           scoreSize = '10';
+      }else if(foodFlag == '7x') {
+          outsideColor = 'black';
+          insideColor = 'green';
+          scoreSize = 'L';
       }
 
       ctx.fillStyle = outsideColor;
@@ -68,6 +75,7 @@ var mainLogic = (function () {
     }
 
     var scoreText = function () {
+
         var score_text = "Score: " + score;
 		let snSize = "Snake size: " + snake.length;
 		let blueLight = "One point: " + onePointFood;
@@ -76,8 +84,9 @@ var mainLogic = (function () {
 		let sumWithBonuses = "Score without bonuses: " + pointsWithoutBonuses;
 		let bonusFromFoods = "Bonuses from foods: " + foodBonusScore;
 		let mostFoodBon = "Most fallen bonus food: " + mostBonusesFromFood;
+    let snakeTotalSize = "Total size of snake: " + snakeSizeWithoutBonus;
 
-		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + "<hr />" + "Food points:" + "<br />" + blueLight +
+		 document.getElementById('score').innerHTML = score_text + "<br />" + snSize + "<br />" + snakeTotalSize + "<br />" + "<hr />" + "Food points:" + "<br />" + blueLight +
 		 "<br />" + redColor + "<br />" + yellowColor + "<br />" + "<hr />" + sumWithBonuses + "<br />" + "<hr />" + bonusFromFoods +
 		 "<br /><br />" + mostFoodBon;
 
@@ -166,9 +175,24 @@ var mainLogic = (function () {
         if (snakeX == food.x && snakeY == food.y) {
             tail = {x: snakeX, y: snakeY};
 
-            if (foodFlag == "10x") {score += 10; tenPointsFood++}
-            else if (foodFlag == "5x") {score += 5; fivePointFood++;}
-            else {score++; onePointFood++;}
+            if (foodFlag == "10x") {
+                score += 10;
+                tenPointsFood++;
+                snakeSizeWithoutBonus++;
+            }
+            else if (foodFlag == "5x") {
+                score += 5;
+                fivePointFood++;
+                snakeSizeWithoutBonus++;
+            }else if(foodFlag == "7x"){
+                resetSnakeSize();
+                snakeSizeWithoutBonus++;
+            }
+            else {
+                score++;
+                onePointFood++;
+                snakeSizeWithoutBonus++;
+            }
 
 			pointsWithoutBonuses = score - ((tenPointsFood * 10) + (fivePointFood * 5));
 			foodBonusScore = (tenPointsFood * 10) + (fivePointFood * 5);
@@ -191,7 +215,10 @@ var mainLogic = (function () {
             gameloop = setInterval(moveSnake, snakeSpeed);
 
 
-            createFood(); //Create new food
+
+           createFood(); //Create new food
+
+
         } else {
 
             snake.pop(); //pops out the last cell
@@ -208,9 +235,11 @@ var mainLogic = (function () {
         }
 
         drawFood(food.x, food.y);
+
         scoreText();
     }
     var foodFlag;
+
 
     var createFood = function () {
         var random = Math.floor(Math.random() * 100 + 1);
@@ -230,13 +259,16 @@ var mainLogic = (function () {
             }
         }
         if (random % 10 == 0) {
-            foodFlag = "10x"
+            foodFlag = "10x";
 
 
         } else if (random % 5 == 0) {
-            foodFlag = "5x"
-        } else {
-            foodFlag = "1x"
+            foodFlag = "5x";
+        }else if(random % 7 == 0){
+            foodFlag = "7x";
+        }
+        else {
+            foodFlag = "1x";
 
         }
 
@@ -263,6 +295,7 @@ var mainLogic = (function () {
 		$('#pause_btn').show();
 		$('#btn').hide();
 
+        snakeSizeWithoutBonus = 5;
         isMusicPaused = false;
         soundEfx = document.getElementById("soundEfx");
         soundEfx.src = soundSoundBackground;
@@ -287,12 +320,21 @@ var mainLogic = (function () {
     });
 
 
+
+
     function stopMusic() {
         soundEfx.pause();
     }
 
     function startMusic() {
         soundEfx.start();
+    }
+
+
+
+    function resetSnakeSize(){
+
+        snake.length = 5;
     }
 
     //pause the game

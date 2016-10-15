@@ -16,8 +16,8 @@
     border-radius: 10px;
     background: gainsboro;
     margin-top: 2%;
-    margin-bottom: 2%;
-    padding-bottom: 2%;
+    margin-bottom: 1%;
+    padding-bottom: 1%;
 }
 
 button {
@@ -121,7 +121,7 @@ p {
 
 #score {
     font-family: Verdana, sans-serif;
-    font-size: 13pt;
+    font-size: 11pt;
     float: left;
     width: 200px;
     height: 40px;

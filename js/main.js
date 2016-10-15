@@ -51,9 +51,9 @@ var mainLogic = (function () {
           outsideColor = 'black';
           insideColor = 'yellow'
           scoreSize = '10';
-      }else if(foodFlag == '7x') {
-          outsideColor = 'black';
-          insideColor = 'green';
+      }else if(foodFlag == '50x') {
+          outsideColor = 'green';
+          insideColor = 'white';
           scoreSize = 'L';
       }
 
@@ -245,8 +245,8 @@ var mainLogic = (function () {
         var random = Math.floor(Math.random() * 100 + 1);
 
         food = {
-            x: Math.floor((Math.random() * 20)),
-            y: Math.floor((Math.random() * 20))
+            x: Math.floor((Math.random() * 40)),
+            y: Math.floor((Math.random() * 34))
 
         }
 
@@ -264,8 +264,8 @@ var mainLogic = (function () {
 
         } else if (random % 5 == 0) {
             foodFlag = "5x";
-        }else if(random % 7 == 0){
-            foodFlag = "7x";
+        }else if(random % 50 == 0){
+            foodFlag = "50x";
         }
         else {
             foodFlag = "1x";

@@ -51,9 +51,11 @@ btn.addEventListener("click", function(){ mainLogic.start();});
 
             case 80:
                 stopMusic();
+                isMusicPaused = true;
                 break;
             case 77:
                 startMusic();
+                isMusicPaused = false;
                 break;
             case 32:
                 pause.onclick();

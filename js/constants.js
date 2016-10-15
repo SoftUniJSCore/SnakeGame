@@ -14,3 +14,4 @@ var snakeStartSpeed = 300;
 var speedMin = 60;
 var speedStep = 20;
 var isPaused ;
+var isMusicPaused = false;

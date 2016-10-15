@@ -141,10 +141,14 @@ var mainLogic = (function () {
 
             //ctx.clearRect(0,0,w,h);
             clock.stop();
-
             soundEfx = document.getElementById("soundEfx");
             soundEfx.src = soundGameOver;
-            soundEfx.play();
+
+            if(!isMusicPaused){
+
+              soundEfx.play();
+          }
+
 
             gameloop = clearInterval(gameloop);
 
@@ -259,6 +263,7 @@ var mainLogic = (function () {
 		$('#pause_btn').show();
 		$('#btn').hide();
 
+        isMusicPaused = false;
         soundEfx = document.getElementById("soundEfx");
         soundEfx.src = soundSoundBackground;
         soundEfx.play();

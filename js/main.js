@@ -55,6 +55,10 @@ var mainLogic = (function () {
           outsideColor = 'green';
           insideColor = 'green';
           scoreSize = 'L';
+      }else if (foodFlag == '12x') {
+          outsideColor = 'purple';
+          insideColor = 'purple';
+          scoreSize = 'S';
       }
 
       ctx.fillStyle = outsideColor;
@@ -187,6 +191,8 @@ var mainLogic = (function () {
             }else if(foodFlag == "11x"){
                 resetSnakeSize();
                 snakeSizeWithoutBonus++;
+            }else if (foodFlag == "12px") {
+                slowSnake();
             }
             else {
                 score++;
@@ -266,7 +272,10 @@ var mainLogic = (function () {
             foodFlag = "5x";
         }else if(random % 11 == 0){
             foodFlag = "11x";
+        }else if (random % 12 == 0) {
+            foodFlag = "12x";
         }
+
         else {
             foodFlag = "1x";
 
@@ -335,6 +344,13 @@ var mainLogic = (function () {
     function resetSnakeSize(){
 
         snake.length = 5;
+    }
+
+
+    function slowSnake() {
+       if(snakeStartSpeed > speedMin){
+          snakeStartSpeed -= 40;
+       }
     }
 
     //pause the game

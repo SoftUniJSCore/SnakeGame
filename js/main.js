@@ -51,9 +51,9 @@ var mainLogic = (function () {
           outsideColor = 'black';
           insideColor = 'yellow'
           scoreSize = '10';
-      }else if(foodFlag == '50x') {
+      }else if(foodFlag == '11x') {
           outsideColor = 'green';
-          insideColor = 'white';
+          insideColor = 'green';
           scoreSize = 'L';
       }
 
@@ -184,7 +184,7 @@ var mainLogic = (function () {
                 score += 5;
                 fivePointFood++;
                 snakeSizeWithoutBonus++;
-            }else if(foodFlag == "7x"){
+            }else if(foodFlag == "11x"){
                 resetSnakeSize();
                 snakeSizeWithoutBonus++;
             }
@@ -264,8 +264,8 @@ var mainLogic = (function () {
 
         } else if (random % 5 == 0) {
             foodFlag = "5x";
-        }else if(random % 50 == 0){
-            foodFlag = "50x";
+        }else if(random % 11 == 0){
+            foodFlag = "11x";
         }
         else {
             foodFlag = "1x";

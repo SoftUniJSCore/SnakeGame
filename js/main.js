@@ -58,7 +58,7 @@ var mainLogic = (function () {
       }else if (foodFlag == '12x') {
           outsideColor = 'purple';
           insideColor = 'purple';
-          scoreSize = 'S';
+          scoreSize = 'S3';
       }
 
       ctx.fillStyle = outsideColor;
@@ -191,7 +191,7 @@ var mainLogic = (function () {
             }else if(foodFlag == "11x"){
                 resetSnakeSize();
                 snakeSizeWithoutBonus++;
-            }else if (foodFlag == "12px") {
+            }else if (foodFlag == "12x") {
                 slowSnake();
             }
             else {
@@ -342,15 +342,14 @@ var mainLogic = (function () {
 
 
     function resetSnakeSize(){
-
         snake.length = 5;
     }
 
 
     function slowSnake() {
-       if(snakeStartSpeed > speedMin){
-          snakeStartSpeed -= 40;
-       }
+      //because ot speedStep next code will slow snake with 30 (50 - speedStep = 30)
+       snakeSpeed += 50;
+
     }
 
     //pause the game

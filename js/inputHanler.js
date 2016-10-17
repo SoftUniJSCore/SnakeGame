@@ -19,7 +19,8 @@ btn.addEventListener("click", function(){ mainLogic.start();});
         keyCode = window.event.keyCode;
         keyCode = event.keyCode;
 
-	  console.log(snakeSpeed);
+	  
+
 
         switch(keyCode) {
 

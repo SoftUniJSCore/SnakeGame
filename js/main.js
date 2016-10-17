@@ -24,6 +24,8 @@ var mainLogic = (function () {
 
 
 
+
+
     var drawSnake = function (x, y) {
         ctx.fillStyle = 'green';
         ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
@@ -56,16 +58,22 @@ var mainLogic = (function () {
           insideColor = 'green';
           scoreSize = 'L';
       }else if (foodFlag == '12x') {
-          outsideColor = 'purple';
-          insideColor = 'purple';
-          scoreSize = 'S3';
+        outsideColor = 'purple';
+        insideColor = 'purple';
+        scoreSize = 'S3';
       }
 
       ctx.fillStyle = outsideColor;
       ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
       ctx.fillStyle = insideColor;
       ctx.fillRect(x * snakeSize + 1, y * snakeSize + 1, snakeSize - 2, snakeSize - 2);
-	  ctx.fillStyle = 'black';
+
+      if(foodFlag == '11x' || foodFlag == '12x'){
+        ctx.fillStyle = 'white';
+      }else {
+        ctx.fillStyle = 'black';
+      }
+
 	  if(scoreSize >= 10){
 		  ctx.fillText(scoreSize, (x * snakeSize) + 1, (y * snakeSize) + 11);
 	  }else{
@@ -80,7 +88,7 @@ var mainLogic = (function () {
 
     var scoreText = function () {
 
-        var score_text = "Score: " + score;
+    var score_text = "Score: " + score;
 		let snSize = "Snake size: " + snake.length;
 		let blueLight = "One point: " + onePointFood;
 		let redColor = "Five point: " + fivePointFood;
@@ -192,7 +200,7 @@ var mainLogic = (function () {
                 resetSnakeSize();
                 snakeSizeWithoutBonus++;
             }else if (foodFlag == "12x") {
-                slowSnake();
+               slowSnake();
             }
             else {
                 score++;
@@ -317,6 +325,7 @@ var mainLogic = (function () {
 
         snakeSpeed = snakeStartSpeed;
 
+
         clock.reset();
         clock.start();
 
@@ -340,18 +349,16 @@ var mainLogic = (function () {
     }
 
 
-
     function resetSnakeSize(){
         snake.length = 5;
     }
 
 
     function slowSnake() {
-      //because ot speedStep next code will slow snake with 30 (50 - speedStep = 30)
-       snakeSpeed += 50;
+       //because ot speedStep next code will slow snake with 30 (50 - speedStep = 30)
+        snakeSpeed += 50;
 
-    }
-
+     }
     //pause the game
 
     var pause = document.getElementById("pause_btn");

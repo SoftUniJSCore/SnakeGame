@@ -60,7 +60,7 @@ var mainLogic = (function () {
       }else if (foodFlag == '12x') {
         outsideColor = 'purple';
         insideColor = 'purple';
-        scoreSize = 'S3';
+        scoreSize = '30';
       }
 
       ctx.fillStyle = outsideColor;
@@ -361,19 +361,26 @@ var mainLogic = (function () {
      }
     //pause the game
 
+
+
     var pause = document.getElementById("pause_btn");
     pause.innerHTML = "PAUSE";
     pause.onclick = function pauseGame() {
         if (!isPaused) {
             gameloop = clearInterval(gameloop);
             pause.innerHTML = "PLAY"
-            soundEfx.pause()
+            soundEfx.pause();
             clock.stop();
             isPaused = true;
         } else if (isPaused = true) {
             gameloop = setInterval(moveSnake, snakeSpeed);
             pause.innerHTML = "PAUSE"
-            soundEfx.play();
+            if(isMusicPaused == true){
+              soundEfx.pause();
+            }else {
+              soundEfx.play();
+            }
+            //soundEfx.play();
             clock.start();
             isPaused = false
         }

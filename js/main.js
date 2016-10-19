@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#pause_btn').hide();
+    $('#legend').hide();
 });
 
 
@@ -311,6 +312,7 @@ var mainLogic = (function () {
     var start = function () {
 		$('#pause_btn').show();
 		$('#btn').hide();
+        $('#legend').show();
 
         snakeSizeWithoutBonus = 5;
         isMusicPaused = false;

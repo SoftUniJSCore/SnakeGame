@@ -231,7 +231,10 @@ var mainLogic = (function () {
 
 
 
-           createFood(); //Create new food
+            //Create new food
+            createFood();
+            var f = setTimeout(function(){ createFood(); }, 15000);
+
 
 
         } else {
@@ -323,7 +326,9 @@ var mainLogic = (function () {
         score = 0;
         direction = 'down';
         fillSnake();
-        createFood();
+         createFood();
+
+
 
         snakeSpeed = snakeStartSpeed;
 
